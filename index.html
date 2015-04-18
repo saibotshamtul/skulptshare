@@ -115,8 +115,8 @@ function oute(text) {
 //runs the code in the textarea whose id is code
 function runit(recurse) { 
    recurse = recurse || false;
-   var prog = document.getElementById("code").value;
-   //var prog = myCodeMirror.doc.getValue();
+   //var prog = document.getElementById("code").value;
+   var prog = myCodeMirror.doc.getValue();
    reset(); 
    // Sk.canvas = "mycanvas";
    Sk.pre = "output";
