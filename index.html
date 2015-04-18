@@ -73,7 +73,7 @@ body{
     border-radius:5px;
     cursor: pointer;
     padding:1px 8px 1px 8px;
-    top:-1px;
+    top:-5px;
     position:relative;
 }
 .run_border{
@@ -145,6 +145,7 @@ function reset() {
    catch(e){}
 }
 
+console.log('functions defined')
 //catch a codeskulptor filename hash, fetch that file, and put it in the textarea
 if(window.location.hash) {
   var hash = window.location.hash.substring(1); //Puts hash in variable, removes # char
@@ -161,16 +162,25 @@ if(window.location.hash) {
     myCodeMirror.doc.setValue(r.firstChild.firstChild.firstChild.children[3].textContent);
   });
 }
+console.log('window.location.hash parsed')
+
 myCodeMirror = CodeMirror.fromTextArea(code,{
   lineNumbers: true, 
   tabSize:4,
   indentWithTabs: true,
   indentUnit: 4
 });
+console.log('codemirror textarea setup')
+
 myCodeMirror.setSize("98%",window.innerHeight-52);
+console.log('setsize')
+
 $(".CodeMirror").css({'border':'1px solid'});
+console.log('css border')
+
 //$('#outdiv').css('max-height',$(window).height());
 $('#outdiv').css('max-height',window.innerHeight-52);
+console.log('css height')
 </script>
 </head>
 <body>
@@ -182,7 +192,7 @@ $('#outdiv').css('max-height',window.innerHeight-52);
       <div class="run_border" onclick="this.blur();runit()">
         <div class="run_button" onclick="this.blur();"></div></div>
       <div class="reset_border" onclick="this.blur();reset()">
-        <div class="reset_button" onclick="this.blur();">&#x27F2;</div></div> 
+        <div class="reset_button" onclick="this.blur();"><img width=16 src="reset.svg"></div></div> 
       
       <!--bt onclick="this.blur();runit()">Run</bt> 
       <bt onclick="this.blur();reset()">Reset</bt-->
