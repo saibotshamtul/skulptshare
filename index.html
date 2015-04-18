@@ -24,7 +24,7 @@
   
   <meta charset="utf-8">
   <title>CodeSkulptor</title>
-<style>
+  <style>
 bt{	display:inline;
 	color:#2B60DE;
 	background:#ADD8E6;
@@ -92,7 +92,8 @@ body{
 .reset_border:hover .reset_button{
     color:#fff
 }</style>
-<script>//Skulpt output/print function
+<script>
+  //Skulpt output/print function
 function outf(text) { 
     var mypre = document.getElementById("output"); 
     mypre.innerHTML = mypre.innerHTML + text; 
@@ -169,7 +170,8 @@ myCodeMirror = CodeMirror.fromTextArea(code,{
 myCodeMirror.setSize("98%",window.innerHeight-52);
 $(".CodeMirror").css({'border':'1px solid'});
 //$('#outdiv').css('max-height',$(window).height());
-$('#outdiv').css('max-height',window.innerHeight-52);</script>
+$('#outdiv').css('max-height',window.innerHeight-52);
+</script>
 </head>
 <body>
   <!--textarea rows=20 cols=80 id="source" style="border:1px solid red;"></textarea-->
@@ -180,7 +182,7 @@ $('#outdiv').css('max-height',window.innerHeight-52);</script>
       <div class="run_border" onclick="this.blur();runit()">
         <div class="run_button" onclick="this.blur();"></div></div>
       <div class="reset_border" onclick="this.blur();reset()">
-        <div class="reset_button" onclick="this.blur();"><img width=18 src="http://saibotshamtul.github.io/skulptshare/reset.svg"></div></div> 
+        <div class="reset_button" onclick="this.blur();">&#x27F2;</div></div> 
       
       <!--bt onclick="this.blur();runit()">Run</bt> 
       <bt onclick="this.blur();reset()">Reset</bt-->
