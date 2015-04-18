@@ -142,7 +142,7 @@ function runit(recurse) {
          //$("#code").text(r.firstChild.firstChild.firstChild.children[3].textContent);
          Sk.builtinFiles.files["./"+fn]=r.firstChild.firstChild.firstChild.children[3].textContent;
          //if (!recurse){
-         if (recurse<2)
+         if (recurse<2){
            //runit(true);
            runit(recurse+1)
          }
@@ -166,7 +166,7 @@ function runit(recurse) {
 	         //$("#code").text(r.firstChild.firstChild.firstChild.children[3].textContent);
 	         Sk.builtinFiles.files["./"+fn]=r.firstChild.firstChild.firstChild.children[3].textContent;
 	         //if (!recurse){
-	         if (recurse<2)
+	         if (recurse<2){
 	           //runit(true);
 	           runit(recurse+1)
 	         }
