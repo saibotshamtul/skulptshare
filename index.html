@@ -114,7 +114,7 @@ function oute(text) {
 
 //runs the code in the textarea whose id is code
 function runit(recurse) { 
-   recurse = recurse || false;
+   recurse = recurse || 0;
    //var prog = document.getElementById("code").value;
    var prog = myCodeMirror.doc.getValue();
    reset(); 
@@ -141,8 +141,10 @@ function runit(recurse) {
          window.YQLResponse=r;
          //$("#code").text(r.firstChild.firstChild.firstChild.children[3].textContent);
          Sk.builtinFiles.files["./"+fn]=r.firstChild.firstChild.firstChild.children[3].textContent;
-         if (!recurse){
-           runit(true);
+         //if (!recurse){
+         if (recurse<2)
+           //runit(true);
+           runit(recurse+1)
          }
        });
        oute("Line "+Sk.currLineNo+": "+e.tp$name+": "+e);
@@ -163,8 +165,10 @@ function runit(recurse) {
 	         window.YQLResponse=r;
 	         //$("#code").text(r.firstChild.firstChild.firstChild.children[3].textContent);
 	         Sk.builtinFiles.files["./"+fn]=r.firstChild.firstChild.firstChild.children[3].textContent;
-	         if (!recurse){
-	           runit(true);
+	         //if (!recurse){
+	         if (recurse<2)
+	           //runit(true);
+	           runit(recurse+1)
 	         }
      		});
 	       oute("Line "+Sk.currLineNo+": "+e.tp$name+": "+e);
