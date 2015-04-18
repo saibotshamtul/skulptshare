@@ -137,8 +137,8 @@ function runit(recurse) {
        	       p = path[p].v;
        	       console.log("Path:"+p)
                if (p.slice(0,11)=="github.com/") {
-	       	       g = p.replace("github.com","");
-	       	       fna = g+fn+".py"
+	       	       repo = p.replace("github.com/","");
+	       	       fna = repo+"/"+fn+".py"
 		       //try to import the external module before reporting the error.
 		       //bucket = fn.slice(0,fn.indexOf("_"));
 		       //cds = "http://codeskulptor-"+bucket+".commondatastorage.googleapis.com/"+fn;
@@ -149,7 +149,7 @@ function runit(recurse) {
 		       $.get(yql,function(r){
 		         window.YQLResponse=r;
 		         //$("#code").text(r.firstChild.firstChild.firstChild.children[3].textContent);
-		         Sk.builtinFiles.files[p+fna]=r.firstChild.firstChild.firstChild.children[3].textContent;
+		         Sk.builtinFiles.files[p+"/"+fn+".py"]=r.firstChild.firstChild.firstChild.children[3].textContent;
 		         //if (!recurse){
 		         if (recurse<5){
 		           //runit(true);
