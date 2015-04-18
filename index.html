@@ -135,7 +135,7 @@ function runit(recurse) {
        path = Sk.sysmodules['string sys'].items[0]['rhs'].$d.path.v || undefined;
        console.log(path)
        for (var p in path){
-       	       console.log(p)
+       	       p = path[p].v;
                if (p.slice(0,11)=="github.com/") {
 	       	       g = p.replace("github.com","");
 		       //try to import the external module before reporting the error.
