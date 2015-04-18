@@ -2,7 +2,7 @@ import simplegui
 print dir(simplegui)
 import sys
 #import saibotshamtul/skulptshare/gh-pages/github.py
-sys.path.append("github.com/saibotshamtul/skulptshare/gh-pages")
+sys.path.insert(0,"github.com/saibotshamtul/skulptshare/gh-pages")
 import github
 
 def draw(canvas):
