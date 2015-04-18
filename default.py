@@ -16,6 +16,3 @@ frame.set_canvas_background("black")
 frame.set_draw_handler(draw)
 frame.set_mouseclick_handler(click)
 frame.start()
-
-for z in range(40):
-    print z
