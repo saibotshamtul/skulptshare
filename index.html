@@ -1,1 +1,225 @@
-<html><body>hello, world! skulptshare</body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <script origsrc="//code.jquery.com/jquery-2.1.1.min.js"></script>
+
+  <!--codeskulptor scipts-->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script src="http://www.codeskulptor.org/js/jquery.flot.min.js"></script>
+  <script src="http://www.codeskulptor.org/js/jquery.flot.axislabels.min.js"></script>
+  <script src="http://www.codeskulptor.org/js/jquery.flot.orderbars.min.js"></script>
+  <script src="http://www.codeskulptor.org/js/numeric-1.2.6.min.js"></script>
+  <script src="http://www.codeskulptor.org/skulpt/skulpt.min.js"></script>
+  <script src="http://www.codeskulptor.org/skulpt/skulpt-stdlib.js"></script>
+  <script origsrc="http://www.codeskulptor.org/js/codeskulptor-compressed.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+  
+  <!--codemirror scripts-->
+  <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
+  <!--link rel="stylesheet" href="http://www.codeskulptor.org/codemirror.cs"-->
+  <script src="http://codemirror.net/lib/codemirror.js"></script>
+  <script src="http://codemirror.net/addon/runmode/runmode.js"></script>
+  <script src="http://codemirror.net/mode/python/python.js"></script>
+  
+  <meta charset="utf-8">
+  <title>CodeSkulptor</title>
+<style>
+bt{	display:inline;
+	color:#2B60DE;
+	background:#ADD8E6;
+	border:1px solid #2B60DE;
+	padding:0px 5px;
+	font-weight:bold;
+	border-radius:5px;
+	font-size:10pt;}
+bt:hover{color:white;}
+
+#output{background-color:#D0D0D0;
+	border-radius:4px;
+	margin-left:5px;margin-right:5px;
+	padding-left:5px;}
+#debugout{background-color:#D0D0D0;
+	border-radius:4px;
+	margin-left:5px;margin-right:5px;
+	padding-left:5px;
+	color:blue;}
+#outdiv{display:inline-block;
+    width:49%;
+    vertical-align:top;
+    overflow:auto;
+    background-color:#D0D0D0;
+    max-height:550px;}
+
+body{
+    font-size:10pt;
+}
+
+.run_button{
+    width:0px;
+    height:0px;
+    border-left: 10px solid #eee;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+}
+.reset_button{
+    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size:15px;
+    color:#eee;
+}
+.reset_border{
+    background:#88F;
+    display:inline-block;
+    border-radius:5px;
+    cursor: pointer;
+    padding:1px 8px 1px 8px;
+    top:-1px;
+    position:relative;
+}
+.run_border{
+    background:#88F;
+    padding:5px 8px 5px 10px;
+    display:inline-block;
+    border-radius:5px;
+    cursor: pointer;
+}
+.run_border:hover,.reset_border:hover{
+    background:#44F;
+}
+.run_border:hover .run_button{
+    border-left: 10px solid #ffF;
+}
+.reset_border:hover .reset_button{
+    color:#fff
+}</style>
+<script>//Skulpt output/print function
+function outf(text) { 
+    var mypre = document.getElementById("output"); 
+    mypre.innerHTML = mypre.innerHTML + text; 
+} 
+
+function builtinRead(x) {
+    if (Sk.builtinFiles === undefined || Sk.builtinFiles.files[x] === undefined){
+        throw "File not found: '" + x + "'";
+    }
+    return Sk.builtinFiles.files[x];
+}
+
+//Skulpt print error messages
+function oute(text) {
+    var mypre = document.getElementById("debugout"); 
+    mypre.innerHTML = mypre.innerHTML + text;
+}
+
+//runs the code in the textarea whose id is code
+function runit() { 
+   //var prog = document.getElementById("code").value;
+   var prog = myCodeMirror.doc.getValue();
+   reset(); 
+   // Sk.canvas = "mycanvas";
+   Sk.pre = "output";
+   Sk.configure({output:outf, read:builtinRead, error:oute}); 
+   //eval(Sk.importMainWithBody("<stdin>",false,prog));
+   try{
+     Sk.importMainWithBody("<stdin>",false,prog);
+   }
+   catch(e){
+     // window.e = e;
+     oute("Line "+Sk.currLineNo+": "+e.tp$name+": "+e);
+     try {
+       Sk.simplegui.cleanup();
+     } 
+     catch(f){}
+   }
+} 
+//resets the output
+function reset() {
+   //var mypre = document.getElementById("output"); 
+   //mypre.innerHTML = '';
+   document.getElementById("output").innerHTML='';
+   document.getElementById("debugout").innerHTML='';
+   try {
+     Sk.simplegui.cleanup();
+   } 
+   catch(e){}
+}
+
+//catch a codeskulptor filename hash, fetch that file, and put it in the textarea
+if(window.location.hash) {
+  var hash = window.location.hash.substring(1); //Puts hash in variable, removes # char
+  bucket = hash.slice(0,hash.indexOf("_"));
+  cds = "http://codeskulptor-"+bucket+".commondatastorage.googleapis.com/"+hash;
+  //yql = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22'+escape(cds)+'%22';
+  yql = 'https://query.yahooapis.com/v1/public/yql?env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&q=select%20*%20from%20data.headers%20where%20url%3D%22'+escape(cds)+'%22';
+  console.log(yql);
+  $.get(yql,function(r){
+    //$("#source").text(':'+r.documentElement.children[0].children[0].children[0].textContent+':');
+    window.YQLResponse=r;
+    //$("#code").text(r.firstChild.firstChild.firstChild.children[3].textContent);
+    //myCodeMirror = CodeMirror.fromTextArea(code);
+    myCodeMirror.doc.setValue(r.firstChild.firstChild.firstChild.children[3].textContent);
+  });
+}
+myCodeMirror = CodeMirror.fromTextArea(code,{
+  lineNumbers: true, 
+  tabSize:4,
+  indentWithTabs: true,
+  indentUnit: 4
+});
+myCodeMirror.setSize("98%",window.innerHeight-52);
+$(".CodeMirror").css({'border':'1px solid'});
+//$('#outdiv').css('max-height',$(window).height());
+$('#outdiv').css('max-height',window.innerHeight-52);</script>
+</head>
+<body>
+  <!--textarea rows=20 cols=80 id="source" style="border:1px solid red;"></textarea-->
+  <div id="main" style="border:0px solid green;width=100%;">
+
+    <div id="buttons" style="width:99.5%;border:0px solid royalblue;">
+      
+      <div class="run_border" onclick="this.blur();runit()">
+        <div class="run_button" onclick="this.blur();"></div></div>
+      <div class="reset_border" onclick="this.blur();reset()">
+        <div class="reset_button" onclick="this.blur();"><img width=18 src="http://saibotshamtul.github.io/skulptshare/reset.svg"></div></div> 
+      
+      <!--bt onclick="this.blur();runit()">Run</bt> 
+      <bt onclick="this.blur();reset()">Reset</bt-->
+    </div buttons>
+
+    <div id="python" style="display:inline-block;width:49%;border:0px solid blue;">
+      <textarea id="code" rows="30" style="width:98%;">
+import simplegui
+print "Hello World"
+print dir(simplegui)
+
+def draw(canvas):
+    canvas.draw_text("Hello, World!", (20,20), 15, "white", "sans-serif")
+    pass
+def click(pos):
+    print pos
+
+frame = simplegui.create_frame("test",320,200,100)
+frame.set_canvas_background("black")
+frame.set_draw_handler(draw)
+frame.set_mouseclick_handler(click)
+frame.start()
+
+for z in range(40):
+    print z
+</textarea>
+    </div python> 
+
+    <div id="outdiv">
+      <div id="console">
+        <pre id="output"></pre>
+      </div console>
+
+      <div id="debug">
+        <pre id="debugout"></pre>
+      </div debug>
+    </div>
+
+  </div main>
+
+</body>
+</html>
