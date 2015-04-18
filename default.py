@@ -1,6 +1,6 @@
 import simplegui
 print dir(simplegui)
-import http://github.com/saibotshamtul/skulptshare/github.py
+import saibotshamtul/skulptshare/github.py
 
 def draw(canvas):
     canvas.draw_text("Hello, World!", (20,20), 15, "white", "sans-serif")
