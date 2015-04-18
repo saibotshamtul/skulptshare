@@ -115,7 +115,7 @@ function oute(text) {
 //runs the code in the textarea whose id is code
 function runit(recurse) { 
    recurse = recurse || 0;
-   console.log("Recurse:"+CStr(recurse));
+   console.log("Recurse:"+recurse.toString());
    //var prog = document.getElementById("code").value;
    var prog = myCodeMirror.doc.getValue();
    reset(); 
