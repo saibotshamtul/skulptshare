@@ -1,1 +1,1 @@
-print "Hello World, Github"
+print "Hello, World! Github is cool!"
