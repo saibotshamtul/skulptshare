@@ -130,54 +130,33 @@ function runit(recurse) {
      window.e = e;
      console.log(e.tp$name);
      if (e.tp$name=="ImportError"){
-       //fn = e.args.v[0].v.split(" ").slice(-1)[0] + ".py";
-       fn = e.args.v[3][2].slice(7,-1).replace('.','/')+".py";
-       //try to import the external module before reporting the error.
-       //bucket = fn.slice(0,fn.indexOf("_"));
-       //cds = "http://codeskulptor-"+bucket+".commondatastorage.googleapis.com/"+fn;
-       cds = "https://raw.githubusercontent.com/"+hash;
-       yql = 'https://query.yahooapis.com/v1/public/yql?env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&q=select%20*%20from%20data.headers%20where%20url%3D%22'+escape(cds)+'%22';
-       console.log("fixing Import Error "+cds);
-       console.log(yql);
-       $.get(yql,function(r){
-         window.YQLResponse=r;
-         //$("#code").text(r.firstChild.firstChild.firstChild.children[3].textContent);
-         Sk.builtinFiles.files["./"+fn]=r.firstChild.firstChild.firstChild.children[3].textContent;
-         //if (!recurse){
-         if (recurse<5){
-           //runit(true);
-           runit(recurse+1);
-         }
-       });
+       fn = e.args.v[0].v.split(" ").slice(-1)[0];
+       path = Sk.sysmodules['string sys'].items[0]['rhs'].$d.path.v || undefined;
+       for (var p in path){
+               if (p.slice(0,11)=="github.com/") {
+	       	       g = p.replace("github.com","");
+		       //try to import the external module before reporting the error.
+		       //bucket = fn.slice(0,fn.indexOf("_"));
+		       //cds = "http://codeskulptor-"+bucket+".commondatastorage.googleapis.com/"+fn;
+		       cds = "https://raw.githubusercontent.com/"+g+hash;
+		       yql = 'https://query.yahooapis.com/v1/public/yql?env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&q=select%20*%20from%20data.headers%20where%20url%3D%22'+escape(cds)+'%22';
+		       console.log("fixing Import Error "+cds);
+		       console.log(yql);
+		       $.get(yql,function(r){
+		         window.YQLResponse=r;
+		         //$("#code").text(r.firstChild.firstChild.firstChild.children[3].textContent);
+		         Sk.builtinFiles.files["./"+fn]=r.firstChild.firstChild.firstChild.children[3].textContent;
+		         //if (!recurse){
+		         if (recurse<5){
+		           //runit(true);
+		           runit(recurse+1);
+		         }
+		       });
+               };
+       };
        oute("Line "+Sk.currLineNo+": "+e.tp$name+": "+e);
        Sk.error = e;
      }
-     /*
-     if (e.tp$name=="SyntaxError"){
-     	if (e.args.v[3][2].slice(0,6)=="import"){
-	       //fn = e.args.v[0].v.split(" ").slice(-1)[0] + ".py";
-	       fn = e.args.v[3][2].slice(7,-1)
-	       //try to import the external module before reporting the error.
-	       //bucket = fn.slice(0,fn.indexOf("_"));
-	       //cds = "http://codeskulptor-"+bucket+".commondatastorage.googleapis.com/"+fn;
-	       cds = "https://raw.githubusercontent.com/"+hash;
-	       yql = 'https://query.yahooapis.com/v1/public/yql?env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&q=select%20*%20from%20data.headers%20where%20url%3D%22'+escape(cds)+'%22';
-	       console.log("fixing Syntax Error "+cds);
-	       console.log(yql);
-	       $.get(yql,function(r){
-	         window.YQLResponse=r;
-	         //$("#code").text(r.firstChild.firstChild.firstChild.children[3].textContent);
-	         Sk.builtinFiles.files["./"+fn]=r.firstChild.firstChild.firstChild.children[3].textContent;
-	         //if (!recurse){
-	         if (recurse<5){
-	           //runit(true);
-	           runit(recurse+1);
-	         }
-     		});
-	       oute("Line "+Sk.currLineNo+": "+e.tp$name+": "+e);
-	       Sk.error = e;
-       	}
-     }*/
 
      try {
        Sk.simplegui.cleanup();
