@@ -1,7 +1,7 @@
 import simplegui
 print dir(simplegui)
 import sys
-#import saibotshamtul/skulptshare/gh-pages/github.py
+#import saibotshamtul/skulptshare/blob/gh-pages/github.py
 sys.path.insert(0,"github.com/saibotshamtul/skulptshare/blob/gh-pages")
 import github
 
