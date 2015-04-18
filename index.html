@@ -138,18 +138,18 @@ function runit(recurse) {
        	       console.log("Path:"+p)
                if (p.slice(0,11)=="github.com/") {
 	       	       g = p.replace("github.com","");
-	       	       fn = "/"+hash+".py"
+	       	       fna = g+fn+".py"
 		       //try to import the external module before reporting the error.
 		       //bucket = fn.slice(0,fn.indexOf("_"));
 		       //cds = "http://codeskulptor-"+bucket+".commondatastorage.googleapis.com/"+fn;
-		       cds = "https://raw.githubusercontent.com/"+g+fn;
+		       cds = "https://raw.githubusercontent.com/"+fna;
 		       yql = 'https://query.yahooapis.com/v1/public/yql?env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&q=select%20*%20from%20data.headers%20where%20url%3D%22'+escape(cds)+'%22';
 		       console.log("fixing Import Error "+cds);
 		       console.log(yql);
 		       $.get(yql,function(r){
 		         window.YQLResponse=r;
 		         //$("#code").text(r.firstChild.firstChild.firstChild.children[3].textContent);
-		         Sk.builtinFiles.files[p+fn]=r.firstChild.firstChild.firstChild.children[3].textContent;
+		         Sk.builtinFiles.files[p+fna]=r.firstChild.firstChild.firstChild.children[3].textContent;
 		         //if (!recurse){
 		         if (recurse<5){
 		           //runit(true);
