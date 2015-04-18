@@ -35,7 +35,7 @@ bt{	display:inline;
 	font-size:10pt;}
 bt:hover{color:white;}
 
-#output{background-color:#D0D0D0;
+#output{background-color:#D0D0D0;co
 	border-radius:4px;
 	margin-left:5px;margin-right:5px;
 	padding-left:5px;}
@@ -131,8 +131,11 @@ function runit(recurse) {
      console.log(e.tp$name);
      if (e.tp$name=="ImportError"){
        fn = e.args.v[0].v.split(" ").slice(-1)[0];
+       console.log(fn);
        path = Sk.sysmodules['string sys'].items[0]['rhs'].$d.path.v || undefined;
+       console.log(path)
        for (var p in path){
+       	       console.log(p)
                if (p.slice(0,11)=="github.com/") {
 	       	       g = p.replace("github.com","");
 		       //try to import the external module before reporting the error.
@@ -205,7 +208,7 @@ if(window.location.hash) {
   cds = "https://raw.githubusercontent.com/"+hash;
   //yql = 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22'+escape(cds)+'%22';
   yql = 'https://query.yahooapis.com/v1/public/yql?env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&q=select%20*%20from%20data.headers%20where%20url%3D%22'+escape(cds)+'%22';
-  console.log(yql);
+  console.log("Importing hash:"+yql);
   $.get(yql,function(r){
     //$("#source").text(':'+r.documentElement.children[0].children[0].children[0].textContent+':');
     window.YQLResponse=r;
@@ -272,17 +275,17 @@ myCodeMirror = CodeMirror.fromTextArea(code,{
   indentWithTabs: true,
   indentUnit: 4
 });
-console.log('codemirror textarea setup')
+//console.log('codemirror textarea setup')
 
 myCodeMirror.setSize("98%",window.innerHeight-52);
-console.log('setsize')
+//console.log('setsize')
 
 $(".CodeMirror").css({'border':'1px solid'});
-console.log('css border')
+//console.log('css border')
 
 //$('#outdiv').css('max-height',$(window).height());
 $('#outdiv').css('max-height',window.innerHeight-52);
-console.log('css height')
+//console.log('css height')
 </script>
 </body>
 </html>
