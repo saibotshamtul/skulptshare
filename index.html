@@ -147,6 +147,7 @@ function reset() {
 
 console.log('functions defined')
 //catch a codeskulptor filename hash, fetch that file, and put it in the textarea
+/*
 if(window.location.hash) {
   var hash = window.location.hash.substring(1); //Puts hash in variable, removes # char
   bucket = hash.slice(0,hash.indexOf("_"));
@@ -163,24 +164,7 @@ if(window.location.hash) {
   });
 }
 console.log('window.location.hash parsed')
-
-myCodeMirror = CodeMirror.fromTextArea(code,{
-  lineNumbers: true, 
-  tabSize:4,
-  indentWithTabs: true,
-  indentUnit: 4
-});
-console.log('codemirror textarea setup')
-
-myCodeMirror.setSize("98%",window.innerHeight-52);
-console.log('setsize')
-
-$(".CodeMirror").css({'border':'1px solid'});
-console.log('css border')
-
-//$('#outdiv').css('max-height',$(window).height());
-$('#outdiv').css('max-height',window.innerHeight-52);
-console.log('css height')
+*/
 </script>
 </head>
 <body>
@@ -232,6 +216,24 @@ for z in range(40):
     </div>
 
   </div main>
+<script>
+myCodeMirror = CodeMirror.fromTextArea(code,{
+  lineNumbers: true, 
+  tabSize:4,
+  indentWithTabs: true,
+  indentUnit: 4
+});
+console.log('codemirror textarea setup')
 
+myCodeMirror.setSize("98%",window.innerHeight-52);
+console.log('setsize')
+
+$(".CodeMirror").css({'border':'1px solid'});
+console.log('css border')
+
+//$('#outdiv').css('max-height',$(window).height());
+$('#outdiv').css('max-height',window.innerHeight-52);
+console.log('css height')
+</script>
 </body>
 </html>
