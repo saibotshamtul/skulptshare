@@ -25,73 +25,74 @@
   <meta charset="utf-8">
   <title>CodeSkulptor</title>
   <style>
-bt{	display:inline;
-	color:#2B60DE;
-	background:#ADD8E6;
-	border:1px solid #2B60DE;
-	padding:0px 5px;
-	font-weight:bold;
-	border-radius:5px;
-	font-size:10pt;}
-bt:hover{color:white;}
-
-#output{background-color:#D0D0D0;co
-	border-radius:4px;
-	margin-left:5px;margin-right:5px;
-	padding-left:5px;}
-#debugout{background-color:#D0D0D0;
-	border-radius:4px;
-	margin-left:5px;margin-right:5px;
-	padding-left:5px;
-	color:blue;}
-#outdiv{display:inline-block;
-    width:49%;
-    vertical-align:top;
-    overflow:auto;
-    background-color:#D0D0D0;
-    max-height:550px;}
-
-body{
-    font-size:10pt;
-}
-
-.run_button{
-    width:0px;
-    height:0px;
-    border-left: 10px solid #eee;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-}
-.reset_button{
-    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size:15px;
-    color:#eee;
-}
-.reset_border{
-    background:#88F;
-    display:inline-block;
-    border-radius:5px;
-    cursor: pointer;
-    padding:1px 8px 1px 8px;
-    top:-4px;
-    position:relative;
-}
-.run_border{
-    background:#88F;
-    padding:5px 8px 5px 10px;
-    display:inline-block;
-    border-radius:5px;
-    cursor: pointer;
-}
-.run_border:hover,.reset_border:hover{
-    background:#44F;
-}
-.run_border:hover .run_button{
-    border-left: 10px solid #ffF;
-}
-.reset_border:hover .reset_button{
-    color:#fff
-}</style>
+    bt{	display:inline;
+    	color:#2B60DE;
+    	background:#ADD8E6;
+    	border:1px solid #2B60DE;
+    	padding:0px 5px;
+    	font-weight:bold;
+    	border-radius:5px;
+    	font-size:10pt;}
+    bt:hover{color:white;}
+    
+    #output{background-color:#D0D0D0;co
+    	border-radius:4px;
+    	margin-left:5px;margin-right:5px;
+    	padding-left:5px;}
+    #debugout{background-color:#D0D0D0;
+    	border-radius:4px;
+    	margin-left:5px;margin-right:5px;
+    	padding-left:5px;
+    	color:blue;}
+    #outdiv{display:inline-block;
+        width:49%;
+        vertical-align:top;
+        overflow:auto;
+        background-color:#D0D0D0;
+        max-height:550px;}
+    
+    body{
+        font-size:10pt;
+    }
+    
+    .run_button{
+        width:0px;
+        height:0px;
+        border-left: 10px solid #eee;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+    }
+    .reset_button{
+        font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size:15px;
+        color:#eee;
+    }
+    .reset_border{
+        background:#88F;
+        display:inline-block;
+        border-radius:5px;
+        cursor: pointer;
+        padding:1px 8px 1px 8px;
+        top:-4px;
+        position:relative;
+    }
+    .run_border{
+        background:#88F;
+        padding:5px 8px 5px 10px;
+        display:inline-block;
+        border-radius:5px;
+        cursor: pointer;
+    }
+    .run_border:hover,.reset_border:hover{
+        background:#44F;
+    }
+    .run_border:hover .run_button{
+        border-left: 10px solid #ffF;
+    }
+    .reset_border:hover .reset_button{
+        color:#fff
+    }
+</style>
 <script>
   //Skulpt output/print function
 function outf(text) { 
@@ -266,24 +267,35 @@ frame.start()
     </div>
 
   </div main>
+
+    <div id="footer" style="border:0px solid red;width=100%;font-family:Tahoma;">
+    	<center>
+    		This page is built based on <a href="http://www.codeskulptor.org/">CodeSkulptor</a>. 
+    		<br>It uses <a href="http://skulpt.org/">Skulpt</a>'s python interpreter, 
+    		<a href="http://codemirror.net/">CodeMirror</a>'s syntax highlighter, 
+    		and <a href="http://www.codeskulptor.org/">CodeSkulptor</a>'s custom gui modules.
+    	</center>
+    </div>
+
+
 <script>
-myCodeMirror = CodeMirror.fromTextArea(code,{
-  lineNumbers: true, 
-  tabSize:4,
-  indentWithTabs: true,
-  indentUnit: 4
-});
-//console.log('codemirror textarea setup')
-
-myCodeMirror.setSize("98%",window.innerHeight-52);
-//console.log('setsize')
-
-$(".CodeMirror").css({'border':'1px solid'});
-//console.log('css border')
-
-//$('#outdiv').css('max-height',$(window).height());
-$('#outdiv').css('max-height',window.innerHeight-52);
-//console.log('css height')
+    myCodeMirror = CodeMirror.fromTextArea(code,{
+      lineNumbers: true, 
+      tabSize:4,
+      indentWithTabs: true,
+      indentUnit: 4
+    });
+    //console.log('codemirror textarea setup')
+    
+    myCodeMirror.setSize("98%",window.innerHeight-52);
+    //console.log('setsize')
+    
+    $(".CodeMirror").css({'border':'1px solid'});
+    //console.log('css border')
+    
+    //$('#outdiv').css('max-height',$(window).height());
+    $('#outdiv').css('max-height',window.innerHeight-52);
+    //console.log('css height')
 </script>
 </body>
 </html>
